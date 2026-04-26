@@ -15,6 +15,15 @@ class Card:
 
     def __repr__(self) -> str:
         return f"{self.rank!r} of {self.suit!r}"
+    
+    def to_dict(self):
+        return {"rank": self.rank, "suit": self.suit}
+    
+    @staticmethod
+    def from_dict(data):
+        return Card(data["rank"], data["suit"])
+
+
 
 class Deck:
     # A standard 52-card deck for poker.
@@ -58,4 +67,16 @@ class Deck:
         #Return the number of cards left in the deck.
         return len(self._cards)
     
+    def to_dict(self):
+        return {
+            "cards": [card.to_dict() for card in self._cards]
+        }
+    
+    @staticmethod
+    def from_dict(data):
+        d = Deck()
+        d._cards = [Card.from_dict(c) for c in data["cards"]]
+        return d
+
+
     
