@@ -67,6 +67,8 @@ def restart():
     game.start_round()
     save_game(game)
     return redirect("/play")
+#----------------------------------------------------
+#DEBUGGING#
 
 @app.route("/debug", methods=["GET", "POST"])
 def debug():
@@ -173,7 +175,7 @@ def get_hand_examples():
             [Card("2", "Hearts"), Card("3", "Hearts"), Card("4", "Hearts"), Card("5", "Hearts"), Card("6", "Hearts")]
         )
     }
-
+#----------------------------------------------------
 
 if __name__ == "__main__":
     app.run(debug=True)
