@@ -17,6 +17,7 @@ def save_game(game):
 
 @app.route("/", methods=["GET"])
 def index():
+    session.pop("game", None)  # Reset the game
     game = get_game()
     return render_template("index.html", state=game)
 
