@@ -68,6 +68,7 @@ def restart():
     game.start_round()
     save_game(game)
     return redirect("/play")
+
 #----------------------------------------------------
 #DEBUGGING#
 
@@ -133,7 +134,7 @@ def debug():
 
 
 def get_hand_examples():
-    """Return example hands for testing different poker ranks."""
+    # Return example hands for testing different poker ranks.
     return {
         "royal_flush": (
             [Card("10", "Hearts"), Card("Jack", "Hearts"), Card("Queen", "Hearts"), Card("King", "Hearts"), Card("Ace", "Hearts")],

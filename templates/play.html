@@ -12,22 +12,16 @@
 <!-- INFO BAR -->
 <section class="info-bar">
     <div class="info-item">
-        <span class="info-label">Pot</span>
-        <span class="info-value">{{ state.pot }}</span>
-    </div>
-    <div class="info-item">
         <span class="info-label">Current Bet</span>
         <span class="info-value">{{ state.current_bet }}</span>
     </div>
-    <div class="info-item">
-        <a href="/debug" class="debug-link" style="color: #666; text-decoration: none; font-size: 0.8rem;">Debug</a>
-    </div>
 </section>
+
+<a href="/debug" class="hidden-debug-link" accesskey="d">Debug</a> <!-- Alt + Shift + D for debug-->
 
 <!-- BETTING PHASE -->
 {% if state.phase == "betting" %}
 <div class="hand-wrapper">
-
     {% if state.player_rank_text %}
         <h3 class="rank-label rank-{{ state.player_rank }}">
             {{ state.player_rank_text }}
@@ -111,11 +105,11 @@
     <div class="showdown-column">
         <h2 class="showdown-title">Your Hand</h2>
 
-        {% if state.player_rank_text %}
-            <h3 class="rank-label rank-{{ state.player_rank }}">
+        <h3 class="rank-label rank-{{ state.player_rank }}">
+            {% if state.player_rank_text %}
                 {{ state.player_rank_text }}
-            </h3>
-        {% endif %}
+            {% endif %}
+        </h3>
 
         <div class="hand-section rank-{{ state.player_rank }}">
             {% for group in state.sorted_groups %}
@@ -141,11 +135,11 @@
 
     <div class="showdown-column">
         <h2 class="showdown-title">Dealer's Hand</h2>
-        {% if state.dealer_rank_text %}
-            <h3 class="rank-label rank-{{ state.dealer_rank }}">
+        <h3 class="rank-label rank-{{ state.dealer_rank }}">
+            {% if state.dealer_rank_text %}
                 {{ state.dealer_rank_text }}
-            </h3>
-        {% endif %}
+            {% endif %}
+        </h3>
         <div class="hand-section rank-{{ state.dealer_rank }}">
             {% for group in state.dealer_sorted_groups %}
                 <div class="card-group group-size-{{ group|length }}">
