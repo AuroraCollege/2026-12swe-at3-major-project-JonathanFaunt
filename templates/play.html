@@ -1,0 +1,180 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- DEALER BAR -->
+<div class="dealer-bar">
+    <img src="{{ url_for('static', filename='dealer.png') }}" class="dealer-img" alt="Dealer">
+    <div class="dealer-bubble">
+        <p class="dealer-message">{{ state.dealer_message }}</p>
+    </div>
+</div>
+
+<!-- INFO BAR -->
+<section class="info-bar">
+    <div class="info-item">
+        <span class="info-label">Pot</span>
+        <span class="info-value">{{ state.pot }}</span>
+    </div>
+    <div class="info-item">
+        <span class="info-label">Current Bet</span>
+        <span class="info-value">{{ state.current_bet }}</span>
+    </div>
+    <div class="info-item">
+        <a href="/debug" class="debug-link" style="color: #666; text-decoration: none; font-size: 0.8rem;">Debug</a>
+    </div>
+</section>
+
+<!-- BETTING PHASE -->
+{% if state.phase == "betting" %}
+<div class="hand-wrapper">
+
+    {% if state.player_rank_text %}
+        <h3 class="rank-label rank-{{ state.player_rank }}">
+            {{ state.player_rank_text }}
+        </h3>
+    {% endif %}
+
+    <div class="hand-section rank-{{ state.player_rank }}">
+        {% for group in state.sorted_groups %}
+            <div class="card-group group-size-{{ group|length }}">
+                {% for card in group %}
+                    {% set suit_symbol = '♣' %}
+                    {% if card.suit == 'Hearts' %}
+                        {% set suit_symbol = '♥' %}
+                    {% elif card.suit == 'Diamonds' %}
+                        {% set suit_symbol = '♦' %}
+                    {% elif card.suit == 'Spades' %}
+                        {% set suit_symbol = '♠' %}
+                    {% endif %}
+                    <div class="card card-{{ card.suit|lower }}">
+                        <span class="card-rank">{{ card.rank }}</span>
+                        <span class="card-suit">{{ suit_symbol }}</span>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<form method="POST" action="/play" class="action-row">
+    <button name="action" value="raise" class="btn btn-primary">Raise 10</button>
+    <button name="action" value="check" class="btn btn-secondary">Check</button>
+    <button name="action" value="fold" class="btn btn-danger">Fold</button>
+</form>
+{% endif %}
+
+<!-- DISCARD PHASE -->
+{% if state.phase == "discard" %}
+<form method="POST" action="/play">
+    <div class="hand-wrapper">
+
+        {% if state.player_rank_text %}
+            <h3 class="rank-label rank-{{ state.player_rank }}">
+                {{ state.player_rank_text }}
+            </h3>
+        {% endif %}
+
+        <div class="hand-section rank-{{ state.player_rank }}">
+            {% for group in state.sorted_groups %}
+                <div class="card-group group-size-{{ group|length }}">
+                    {% for card in group %}
+                        {% set suit_symbol = '♣' %}
+                        {% if card.suit == 'Hearts' %}
+                            {% set suit_symbol = '♥' %}
+                        {% elif card.suit == 'Diamonds' %}
+                            {% set suit_symbol = '♦' %}
+                        {% elif card.suit == 'Spades' %}
+                            {% set suit_symbol = '♠' %}
+                        {% endif %}
+                        <label class="card card-{{ card.suit|lower }} card-selectable">
+                            <input type="checkbox" name="discard[]" value="{{ card.original_index }}">
+                            <span class="card-rank">{{ card.rank }}</span>
+                            <span class="card-suit">{{ suit_symbol }}</span>
+                        </label>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="action-row">
+        <button name="action" value="discard" class="btn btn-primary">Discard Selected</button>
+        <button name="action" value="skip" class="btn btn-secondary">Keep Hand</button>
+    </div>
+</form>
+{% endif %}
+
+<!-- SHOWDOWN -->
+{% if state.phase == "showdown" %}
+<div class="showdown-layout">
+
+    <div class="showdown-column">
+        <h2 class="showdown-title">Your Hand</h2>
+
+        {% if state.player_rank_text %}
+            <h3 class="rank-label rank-{{ state.player_rank }}">
+                {{ state.player_rank_text }}
+            </h3>
+        {% endif %}
+
+        <div class="hand-section rank-{{ state.player_rank }}">
+            {% for group in state.sorted_groups %}
+                <div class="card-group group-size-{{ group|length }}">
+                    {% for card in group %}
+                        {% set suit_symbol = '♣' %}
+                        {% if card.suit == 'Hearts' %}
+                            {% set suit_symbol = '♥' %}
+                        {% elif card.suit == 'Diamonds' %}
+                            {% set suit_symbol = '♦' %}
+                        {% elif card.suit == 'Spades' %}
+                            {% set suit_symbol = '♠' %}
+                        {% endif %}
+                        <div class="card card-{{ card.suit|lower }}">
+                            <span class="card-rank">{{ card.rank }}</span>
+                            <span class="card-suit">{{ suit_symbol }}</span>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="showdown-column">
+        <h2 class="showdown-title">Dealer's Hand</h2>
+        {% if state.dealer_rank_text %}
+            <h3 class="rank-label rank-{{ state.dealer_rank }}">
+                {{ state.dealer_rank_text }}
+            </h3>
+        {% endif %}
+        <div class="hand-section rank-{{ state.dealer_rank }}">
+            {% for group in state.dealer_sorted_groups %}
+                <div class="card-group group-size-{{ group|length }}">
+                    {% for card in group %}
+                        {% set suit_symbol = '♣' %}
+                        {% if card.suit == 'Hearts' %}
+                            {% set suit_symbol = '♥' %}
+                        {% elif card.suit == 'Diamonds' %}
+                            {% set suit_symbol = '♦' %}
+                        {% elif card.suit == 'Spades' %}
+                            {% set suit_symbol = '♠' %}
+                        {% endif %}
+                        <div class="card card-{{ card.suit|lower }}">
+                            <span class="card-rank">{{ card.rank }}</span>
+                            <span class="card-suit">{{ suit_symbol }}</span>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+
+<p class="outcome-text">{{ state.outcome_message }}</p>
+
+<form method="POST" action="/restart" class="action-row">
+    <button class="btn btn-primary">Play Again</button>
+</form>
+{% endif %}
+
+{% endblock %}

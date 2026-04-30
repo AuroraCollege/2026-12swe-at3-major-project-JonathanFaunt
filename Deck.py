@@ -1,14 +1,15 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from random import shuffle
 from typing import List
 
 SUITS = ["Clubs", "Diamonds", "Hearts", "Spades"]
 RANKS = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"]
 
-@dataclass(frozen=True)
+@dataclass
 class Card:
     rank: str
     suit: str
+    original_index: int | None = field(default=None)
 
     def __str__(self) -> str:
         return f"{self.rank} of {self.suit}"
@@ -17,11 +18,19 @@ class Card:
         return f"{self.rank!r} of {self.suit!r}"
     
     def to_dict(self):
-        return {"rank": self.rank, "suit": self.suit}
+        return {
+            "rank": self.rank,
+            "suit": self.suit,
+            "original_index": self.original_index,
+        }
     
     @staticmethod
     def from_dict(data):
-        return Card(data["rank"], data["suit"])
+        return Card(
+            data["rank"],
+            data["suit"],
+            data.get("original_index"),
+        )
 
 
 
@@ -66,6 +75,11 @@ class Deck:
     def remaining(self) -> int:
         #Return the number of cards left in the deck.
         return len(self._cards)
+    
+    @property
+    def cards(self) -> List[Card]:
+        #Return the list of remaining cards in the deck.
+        return self._cards
     
     def to_dict(self):
         return {

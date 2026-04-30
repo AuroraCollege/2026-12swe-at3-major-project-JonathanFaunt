@@ -1,0 +1,192 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>Game Debug Information</h1>
+
+<!-- HAND MODIFICATION SECTION -->
+<div class="debug-section">
+    <h2>Modify Hands</h2>
+
+    <h3>Load Example Hands</h3>
+    <form method="POST" action="/debug" style="margin-bottom: 20px;">
+        <input type="hidden" name="action" value="load_example">
+        <select name="example" style="margin-right: 10px;">
+            <option value="">Select an example hand...</option>
+            <option value="royal_flush">Royal Flush</option>
+            <option value="straight_flush">Straight Flush</option>
+            <option value="four_of_a_kind">Four of a Kind</option>
+            <option value="full_house">Full House</option>
+            <option value="flush">Flush</option>
+            <option value="straight">Straight</option>
+            <option value="three_of_a_kind">Three of a Kind</option>
+            <option value="two_pair">Two Pair</option>
+            <option value="one_pair">One Pair</option>
+            <option value="high_card">High Card</option>
+        </select>
+        <button type="submit" class="btn btn-primary">Load Example</button>
+    </form>
+
+    <h3>Set Custom Hands</h3>
+    <form method="POST" action="/debug">
+        <input type="hidden" name="action" value="set_hands">
+
+        <div style="display: flex; gap: 40px; margin-bottom: 20px;">
+            <div>
+                <h4>Player Hand</h4>
+                {% for i in range(5) %}
+                <div style="margin-bottom: 8px;">
+                    <select name="player_rank_{{ i }}" style="width: 80px; margin-right: 8px;">
+                        <option value="">Rank</option>
+                        {% for rank in ["2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"] %}
+                        <option value="{{ rank }}" {% if state.player_hand[i] and state.player_hand[i].rank == rank %}selected{% endif %}>{{ rank }}</option>
+                        {% endfor %}
+                    </select>
+                    <select name="player_suit_{{ i }}" style="width: 100px;">
+                        <option value="">Suit</option>
+                        {% for suit in ["Clubs", "Diamonds", "Hearts", "Spades"] %}
+                        <option value="{{ suit }}" {% if state.player_hand[i] and state.player_hand[i].suit == suit %}selected{% endif %}>{{ suit }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div>
+                <h4>Dealer Hand</h4>
+                {% for i in range(5) %}
+                <div style="margin-bottom: 8px;">
+                    <select name="dealer_rank_{{ i }}" style="width: 80px; margin-right: 8px;">
+                        <option value="">Rank</option>
+                        {% for rank in ["2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"] %}
+                        <option value="{{ rank }}" {% if state.dealer_hand[i] and state.dealer_hand[i].rank == rank %}selected{% endif %}>{{ rank }}</option>
+                        {% endfor %}
+                    </select>
+                    <select name="dealer_suit_{{ i }}" style="width: 100px;">
+                        <option value="">Suit</option>
+                        {% for suit in ["Clubs", "Diamonds", "Hearts", "Spades"] %}
+                        <option value="{{ suit }}" {% if state.dealer_hand[i] and state.dealer_hand[i].suit == suit %}selected{% endif %}>{{ suit }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update Hands</button>
+    </form>
+</div>
+
+<div class="debug-section">
+    <h2>Game State</h2>
+    <div class="debug-item">
+        <strong>Phase:</strong> {{ state.phase }}
+    </div>
+    <div class="debug-item">
+        <strong>Player Chips:</strong> {{ state.player_chips }}
+    </div>
+    <div class="debug-item">
+        <strong>Pot:</strong> {{ state.pot }}
+    </div>
+    <div class="debug-item">
+        <strong>Current Bet:</strong> {{ state.current_bet }}
+    </div>
+    <div class="debug-item">
+        <strong>Dealer Folded:</strong> {{ state.dealer_folded }}
+    </div>
+    <div class="debug-item">
+        <strong>Dealer Message:</strong> {{ state.dealer_message }}
+    </div>
+    <div class="debug-item">
+        <strong>Outcome Message:</strong> {{ state.outcome_message }}
+    </div>
+</div>
+
+<div class="debug-section">
+    <h2>Player Hand</h2>
+    <div class="debug-item">
+        <strong>Rank:</strong> {{ state.player_rank }} ({{ state.player_rank_text }})
+    </div>
+    <div class="debug-item">
+        <strong>Cards:</strong>
+        <div class="hand-display">
+            {% for card in state.player_hand %}
+                <div class="debug-card">
+                    {{ card.rank }} of {{ card.suit }}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% if state.sorted_groups %}
+    <div class="debug-item">
+        <strong>Grouped Cards:</strong>
+        <div class="hand-display">
+            {% for group in state.sorted_groups %}
+                <div class="debug-group">
+                    {% for card in group %}
+                        <div class="debug-card">
+                            {{ card.rank }} of {{ card.suit }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<div class="debug-section">
+    <h2>Dealer Hand</h2>
+    <div class="debug-item">
+        <strong>Rank:</strong> {{ state.dealer_rank }} ({{ state.dealer_rank_text }})
+    </div>
+    <div class="debug-item">
+        <strong>Cards:</strong>
+        <div class="hand-display">
+            {% for card in state.dealer_hand %}
+                <div class="debug-card">
+                    {{ card.rank }} of {{ card.suit }}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% if state.dealer_sorted_groups %}
+    <div class="debug-item">
+        <strong>Grouped Cards:</strong>
+        <div class="hand-display">
+            {% for group in state.dealer_sorted_groups %}
+                <div class="debug-group">
+                    {% for card in group %}
+                        <div class="debug-card">
+                            {{ card.rank }} of {{ card.suit }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<div class="debug-section">
+    <h2>Deck Information</h2>
+    <div class="debug-item">
+        <strong>Cards Remaining:</strong> {{ state.deck.cards|length }}
+    </div>
+    <div class="debug-item">
+        <strong>Top 5 Cards:</strong>
+        <div class="hand-display">
+            {% for card in state.deck.cards[:5] %}
+                <div class="debug-card">
+                    {{ card.rank }} of {{ card.suit }}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div class="debug-actions">
+    <a href="/play" class="btn btn-primary">Back to Game</a>
+    <a href="/" class="btn btn-secondary">Home</a>
+</div>
+
+{% endblock %}

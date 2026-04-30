@@ -1,18 +1,30 @@
-<head>
-    <title>{{ title }}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+{% extends "base.html" %}
+{% block content %}
 
-<body>
-    <div class="App">
-        <header class="App-header">
-            <p>
-                GitHub Codespaces <span class="heart">♥️</span> Flask Template
-            </p>
-            <p class="small">
-                Edit <code>templates/index.html</code> and refresh to see your changes!
-            </p>
-        </header>
+<div class="panel panel-center index-layout">
+
+    <div class="index-text">
+        <h2 class="panel-title">Welcome to 5 Draw Poker</h2>
+
+        <p class="panel-text">
+            You have <strong>{{ state.player_chips }}</strong> chips.
+        </p>
+
+        <p class="panel-text">
+            Buy-in for each round is <strong>10</strong> chips.
+        </p>
+
+        <form method="POST" action="/start" class="panel-actions">
+            <button type="submit" class="btn btn-primary">Start Game</button>
+        </form>
     </div>
-</body>
 
-</html>
+    <div class="index-image">
+        <img src="{{ url_for('static', filename='poker_rank_values.png') }}"
+             alt="Poker Hand Rankings"
+             class="rank-image">
+    </div>
+
+</div>
+
+{% endblock %}

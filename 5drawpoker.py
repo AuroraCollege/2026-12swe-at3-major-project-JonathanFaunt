@@ -2,6 +2,9 @@ from Deck import Deck
 from HandEvaluator import *
 from DealerLogic import DealerAI
 
+# This isn't actually used in the Flask app, mainly because this is a version made specifically for the terminal.
+# May be deleted soon
+
 dealer_ai = DealerAI()
 deck = Deck()
 deck.shuffle()

@@ -1,0 +1,653 @@
+/* ---------------------------------------------------------
+   GLOBAL RESET & BASE LAYOUT
+--------------------------------------------------------- */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    background: #f5f5f7;
+    color: #222;
+}
+
+.page-main {
+    padding: 24px 16px 40px;
+}
+
+.page-container {
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+/* ---------------------------------------------------------
+   HEADER
+--------------------------------------------------------- */
+
+.site-header {
+    background: #1f2933; /* dark, slightly blue-ish gray */
+    color: #f9fafb;
+    padding: 12px 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+.header-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.site-title {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.header-chips {
+    font-size: 0.95rem;
+}
+
+.chip-label {
+    opacity: 0.8;
+    margin-right: 4px;
+}
+
+.chip-value {
+    font-weight: 600;
+}
+
+/* ---------------------------------------------------------
+   PANELS (INDEX PAGE)
+--------------------------------------------------------- */
+
+.panel {
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 24px 24px 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.panel-center {
+    max-width: 420px;
+    margin: 40px auto;
+    text-align: center;
+}
+
+.panel-title {
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-size: 1.4rem;
+}
+
+.panel-text {
+    margin: 4px 0;
+}
+
+.panel-actions {
+    margin-top: 18px;
+}
+
+/* Index layout with image */
+.index-layout {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.index-text {
+    flex: 1;
+    text-align: left;
+}
+
+.index-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.rank-image {
+    max-width: 260px;
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+}
+
+/* ---------------------------------------------------------
+   BUTTONS (Bootstrap-like)
+--------------------------------------------------------- */
+
+.btn {
+    display: inline-block;
+    padding: 8px 18px;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    font-size: 0.95rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.1s ease, border-color 0.1s ease, color 0.1s ease;
+}
+
+.btn-primary {
+    background: #2563eb;
+    border-color: #2563eb;
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background: #1d4ed8;
+    border-color: #1d4ed8;
+}
+
+.btn-secondary {
+    background: #e5e7eb;
+    border-color: #d1d5db;
+    color: #111827;
+}
+
+.btn-secondary:hover {
+    background: #d1d5db;
+}
+
+.btn-danger {
+    background: #dc2626;
+    border-color: #b91c1c;
+    color: #ffffff;
+}
+
+.btn-danger:hover {
+    background: #b91c1c;
+}
+
+/* ---------------------------------------------------------
+   DEALER BAR
+--------------------------------------------------------- */
+
+.dealer-bar {
+    width: 100%;
+    background: #cbd5e1; /* Option B */
+    padding: 20px 0;
+    text-align: center;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dealer-img {
+    width: 110px;
+    border-radius: 6px;
+}
+
+.dealer-bubble {
+    background: #ffffff;
+    display: inline-block;
+    padding: 10px 14px;
+    margin-top: 12px;
+    border-radius: 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+.dealer-message {
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+/* ---------------------------------------------------------
+   INFO BAR
+--------------------------------------------------------- */
+
+.info-bar {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+}
+
+.info-item {
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 8px 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    display: inline-flex;
+    align-items: baseline;
+    gap: 6px;
+}
+
+.info-label {
+    font-size: 0.85rem;
+    opacity: 0.7;
+}
+
+.info-value {
+    font-weight: 600;
+}
+
+/* ---------------------------------------------------------
+   HAND LAYOUT
+--------------------------------------------------------- */
+
+.hand-wrapper {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.hand-section {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: nowrap;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.card-group {
+    display: flex;
+    gap: 8px;
+}
+
+/* ---------------------------------------------------------
+   CARD STYLE (classic casino)
+--------------------------------------------------------- */
+
+.card {
+    background: #ffffff;
+    border-radius: 6px;
+    border: 1px solid #d1d5db;
+    padding: 6px 8px;
+    min-width: 40px;
+    text-align: center;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+}
+
+.card-rank {
+    font-weight: 600;
+    line-height: 1.1;
+}
+
+.card-suit {
+    font-size: 0.9rem;
+}
+
+/* Suit colors */
+.card-hearts .card-suit,
+.card-diamonds .card-suit {
+    color: #dc2626;
+}
+
+.card-clubs .card-suit,
+.card-spades .card-suit {
+    color: #111827;
+}
+
+/* ---------------------------------------------------------
+   DISCARD PHASE SELECTABLE CARDS
+--------------------------------------------------------- */
+
+.card-selectable {
+    cursor: pointer;
+    position: relative;
+}
+
+.card-selectable:focus-within {
+    outline: 2px solid #2563eb;
+    outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------
+   GROUP HIGHLIGHTING (pairs, trips, quads)
+--------------------------------------------------------- */
+
+.group-size-2 {
+    background: rgba(255,215,0,0.25);
+    border: 2px solid gold;
+    border-radius: 6px;
+    padding: 4px;
+}
+
+.group-size-3 {
+    background: rgba(30,144,255,0.25);
+    border: 2px solid dodgerblue;
+    border-radius: 6px;
+    padding: 4px;
+}
+
+.group-size-4 {
+    background: rgba(220,20,60,0.25);
+    border: 2px solid crimson;
+    border-radius: 6px;
+    padding: 4px;
+}
+
+/* ---------------------------------------------------------
+   ACTION ROW
+--------------------------------------------------------- */
+
+.action-row {
+    margin-top: 12px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+/* ---------------------------------------------------------
+   SHOWDOWN LAYOUT
+--------------------------------------------------------- */
+
+.showdown-layout {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+}
+
+.showdown-column {
+    flex: 1 1 0;
+    min-width: 260px;
+}
+
+.showdown-title {
+    margin-top: 0;
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+}
+
+.outcome-text {
+    margin-top: 16px;
+    font-weight: 500;
+}
+
+/* ---------------------------------------------------------
+   DEBUG PAGE
+--------------------------------------------------------- */
+
+.debug-section {
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.debug-section h2 {
+    margin-top: 0;
+    margin-bottom: 16px;
+    color: #1f2933;
+    font-size: 1.2rem;
+}
+
+.debug-item {
+    margin-bottom: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.debug-item:last-child {
+    border-bottom: none;
+}
+
+.debug-item strong {
+    display: inline-block;
+    min-width: 120px;
+    color: #374151;
+}
+
+.hand-display {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.debug-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    padding: 6px 10px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.debug-group {
+    display: flex;
+    gap: 4px;
+    background: #fef3c7;
+    border: 1px solid #f59e0b;
+    border-radius: 6px;
+    padding: 8px;
+    margin-right: 8px;
+}
+
+.debug-actions {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.debug-actions .btn {
+    margin: 0 8px;
+}
+
+/* ---------------------------------------------------------
+   DEBUG FORM STYLES
+--------------------------------------------------------- */
+
+.debug-section select {
+    padding: 6px 8px;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    background: #ffffff;
+    font-size: 0.9rem;
+}
+
+.debug-section select:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+}
+
+.debug-section h3 {
+    margin-top: 24px;
+    margin-bottom: 12px;
+    color: #1f2933;
+    font-size: 1.1rem;
+}
+
+.debug-section h4 {
+    margin-top: 16px;
+    margin-bottom: 8px;
+    color: #374151;
+    font-size: 1rem;
+}
+
+/* ---------------------------------------------------------
+   RESPONSIVE
+--------------------------------------------------------- */
+
+@media (max-width: 700px) {
+    .index-layout {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .dealer-bar {
+        padding: 16px 0;
+    }
+
+    .hand-section {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .showdown-layout {
+        flex-direction: column;
+    }
+}
+
+/* ---------------------------------------------------------
+   RANK-BASED OVERRIDES (straight, flush, full house, etc.)
+   These override group highlights when applied to .hand-section
+--------------------------------------------------------- */
+
+/* Straight */
+.rank-4 .card {
+    background: rgba(255,165,0,0.25);
+    border-color: orange;
+}
+
+/* Flush */
+.rank-5 .card {
+    background: rgba(34,139,34,0.25);
+    border-color: forestgreen;
+}
+
+/* Full House */
+.rank-6 .card {
+    background: rgba(0,255,255,0.25);
+    border-color: cyan;
+}
+
+/* Straight Flush */
+.rank-8 .card {
+    background: linear-gradient(45deg, rgba(255,0,0,0.25), rgba(128,0,128,0.25));
+    border-color: purple;
+}
+
+/* Royal Flush */
+.rank-9 .card {
+    background: linear-gradient(45deg, gold, purple);
+    border-color: gold;
+    box-shadow: 0 0 10px gold;
+}
+
+/* ---------------------------------------------------------
+   FIXED CHECKBOX BEHAVIOR (allow multi-select)
+--------------------------------------------------------- */
+.card-selectable input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+}
+
+/* ---------------------------------------------------------
+   RANK-BASED OVERRIDES (straight, flush, full house, etc.)
+--------------------------------------------------------- */
+
+/* Straight */
+.rank-4 .card {
+    background: rgba(255,165,0,0.25);
+    border-color: orange;
+}
+
+/* Flush (forestgreen) */
+.rank-5 .card {
+    background: rgba(34,139,34,0.25);
+    border-color: forestgreen;
+}
+
+/* Full House (cyan) */
+.rank-6 .card {
+    background: rgba(0,255,255,0.25);
+    border-color: cyan;
+}
+
+/* Straight Flush */
+.rank-8 .card {
+    background: linear-gradient(45deg, rgba(255,0,0,0.25), rgba(128,0,128,0.25));
+    border-color: purple;
+}
+
+/* Royal Flush */
+.rank-9 .card {
+    background: linear-gradient(45deg, gold, purple);
+    border-color: gold;
+    box-shadow: 0 0 10px gold;
+}
+
+/* ---------------------------------------------------------
+   GROUP HIGHLIGHTING (pairs, trips, quads)
+--------------------------------------------------------- */
+
+.group-size-2 {
+    background: rgba(255,215,0,0.25);
+    border: 2px solid gold;
+    border-radius: 6px;
+    padding: 4px;
+}
+
+.group-size-3 {
+    background: rgba(30,144,255,0.25);
+    border: 2px solid dodgerblue;
+    border-radius: 6px;
+    padding: 4px;
+}
+
+.group-size-4 {
+    background: rgba(220,20,60,0.25);
+    border: 2px solid crimson;
+    border-radius: 6px;
+    padding: 4px;
+}
+
+/* ---------------------------------------------------------
+   RANK LABEL COLORS (match card highlight colors)
+--------------------------------------------------------- */
+
+.rank-label {
+    text-align: center;
+    margin: 6px 0 10px;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+/* Pair / Two Pair */
+.rank-1.rank-label,
+.rank-2.rank-label {
+    color: gold;
+}
+
+/* Trips */
+.rank-3.rank-label {
+    color: dodgerblue;
+}
+
+/* Straight */
+.rank-4.rank-label {
+    color: orange;
+}
+
+/* Flush */
+.rank-5.rank-label {
+    color: forestgreen;
+}
+
+/* Full House */
+.rank-6.rank-label {
+    color: cyan;
+}
+
+/* Quads */
+.rank-7.rank-label {
+    color: crimson;
+}
+
+/* Straight Flush */
+.rank-8.rank-label {
+    color: purple;
+}
+
+/* Royal Flush */
+.rank-9.rank-label {
+    color: gold;
+}
+

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>5 Draw Poker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="header-inner">
+            <h1 class="site-title">5 Draw Poker</h1>
+            <div class="header-chips">
+                {% if state %}
+                    <span class="chip-label">Chips:</span>
+                    <span class="chip-value">{{ state.player_chips }}</span>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <main class="page-main">
+        <div class="page-container">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </main>
+</body>
+</html>
