@@ -14,7 +14,8 @@ HAND_RANKS = {
     "full_house": 6,
     "four_of_a_kind": 7,
     "straight_flush": 8,
-    "royal_flush": 9
+    "royal_flush": 9,
+    "five_of_a_kind": 10
 }
 
 RANK_NAMES = {
@@ -27,7 +28,8 @@ RANK_NAMES = {
     6: "Full House",
     7: "Four of a Kind",
     8: "Straight Flush",
-    9: "Royal Flush"
+    9: "Royal Flush",
+    10: "Five of a Kind"
 }
 
 VALUE_TO_NAME = {
@@ -37,6 +39,7 @@ VALUE_TO_NAME = {
 }
 
 PAYOUT_MULTIPLIERS = {
+    10: 500,
     9: 250,
     8: 50,
     7: 25,
@@ -57,6 +60,11 @@ def evaluate_hand(hand: Any) -> tuple[int, list[int]]:
     ranks = [card.rank for card in hand]
     suits = [card.suit for card in hand]
     values = convert_ranks_to_values(ranks)
+
+    # Five of a Kind (secret joke hand)
+    is_5k, fk5_val = is_five_of_a_kind(values)
+    if is_5k:
+        return HAND_RANKS["five_of_a_kind"], fk5_val
 
     # Royal Flush
     is_rf, rf_val = is_royal_flush(values, suits)
@@ -113,6 +121,9 @@ def evaluate_hand(hand: Any) -> tuple[int, list[int]]:
 
 def format_hand(rank: int, tiebreakers: list[int]) -> str:
     name = RANK_NAMES[rank]
+
+    if rank == 10:
+        return f"Five of a Kind ({VALUE_TO_NAME[tiebreakers[0]]}s)"
 
     if rank == 9:
         return "Royal Flush"
@@ -173,6 +184,12 @@ def get_payout_multiplier(rank: int) -> int:
 # ---------------------------------------------------------
 #  HAND TYPE CHECKS — ALWAYS RETURN list[int]
 # ---------------------------------------------------------
+
+def is_five_of_a_kind(values: list[int]) -> tuple[bool, list[int]]:
+    if len(set(values)) == 1:
+        return True, [values[0]]
+    return False, []
+
 
 def is_royal_flush(values: list[int], suits: list[str]) -> tuple[bool, list[int]]:
     if set(values) == {10, 11, 12, 13, 14} and len(set(suits)) == 1:

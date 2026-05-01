@@ -12,6 +12,7 @@
         <input type="hidden" name="action" value="load_example">
         <select name="example" style="margin-right: 10px;">
             <option value="">Select an example hand...</option>
+            <option value="five_of_a_kind">Five of a Kind</option>
             <option value="royal_flush">Royal Flush</option>
             <option value="straight_flush">Straight Flush</option>
             <option value="four_of_a_kind">Four of a Kind</option>
@@ -104,13 +105,13 @@
 <div class="debug-section">
     <h2>Player Hand</h2>
     <div class="debug-item">
-        <strong>Rank:</strong> {{ state.player_rank }} ({{ state.player_rank_text }})
+        <strong>Rank:</strong> {{ state.player_rank }} {% if state.player_rank == 10 %}<span style="background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">({{ state.player_rank_text }})</span>{% else %}({{ state.player_rank_text }}){% endif %}
     </div>
     <div class="debug-item">
         <strong>Cards:</strong>
         <div class="hand-display">
             {% for card in state.player_hand %}
-                <div class="debug-card">
+                <div class="debug-card {% if state.player_rank == 10 %}rainbow-card{% endif %}">
                     {{ card.rank }} of {{ card.suit }}
                 </div>
             {% endfor %}
@@ -137,13 +138,13 @@
 <div class="debug-section">
     <h2>Dealer Hand</h2>
     <div class="debug-item">
-        <strong>Rank:</strong> {{ state.dealer_rank }} ({{ state.dealer_rank_text }})
+        <strong>Rank:</strong> {{ state.dealer_rank }} {% if state.dealer_rank == 10 %}<span style="background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">({{ state.dealer_rank_text }})</span>{% else %}({{ state.dealer_rank_text }}){% endif %}
     </div>
     <div class="debug-item">
         <strong>Cards:</strong>
         <div class="hand-display">
             {% for card in state.dealer_hand %}
-                <div class="debug-card">
+                <div class="debug-card {% if state.dealer_rank == 10 %}rainbow-card{% endif %}">
                     {{ card.rank }} of {{ card.suit }}
                 </div>
             {% endfor %}

@@ -18,7 +18,8 @@ RANK_TEXT = {
     6: "Full House!",
     7: "Four of a Kind!",
     8: "Straight Flush!",
-    9: "Royal Flush!"
+    9: "Royal Flush!",
+    10: "Five of a Kind!"
 }
 
 
@@ -54,6 +55,9 @@ class GameState:
         self.dealer_sorted_groups = []
         self.outcome_message = ""
 
+        self.stats_recorded = False
+        self.previous_chips = 500
+
     # ---------------------------------------------------------
     # Start a new round
     # ---------------------------------------------------------
@@ -76,6 +80,7 @@ class GameState:
         self.pot = 10
         self.current_bet = 10
         self.player_chips -= 10
+        self.stats_recorded = False
 
         self.dealer_message = "Place your bet."
         self.update_sorted_groups()
@@ -243,6 +248,8 @@ class GameState:
             "player_rank_text": self.player_rank_text,
             "dealer_rank": self.dealer_rank,
             "dealer_rank_text": self.dealer_rank_text,
+            "stats_recorded": self.stats_recorded,
+            "previous_chips": self.previous_chips,
         }
 
     @staticmethod
@@ -266,6 +273,9 @@ class GameState:
 
         gs.dealer_rank = data.get("dealer_rank", 0)
         gs.dealer_rank_text = data.get("dealer_rank_text", RANK_TEXT.get(gs.dealer_rank, ""))
+
+        gs.stats_recorded = data.get("stats_recorded", False)
+        gs.previous_chips = data.get("previous_chips", gs.player_chips)
 
         gs.update_sorted_groups()
         gs.update_dealer_sorted_groups()

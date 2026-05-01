@@ -10,13 +10,36 @@
 <body>
     <header class="site-header">
         <div class="header-inner">
-            <h1 class="site-title">5 Draw Poker</h1>
-            <div class="header-chips">
-                {% if state %}
-                    <span class="chip-label">Chips:</span>
-                    <span class="chip-value">{{ state.player_chips }}</span>
-                {% endif %}
+
+            <div class="header-left">
+                <nav class="nav-bar nav-bar-left">
+                    <a href="/">Home</a>
+                    <a href="/leaderboard">Leaderboard</a>
+                </nav>
             </div>
+
+            <div class="header-center">
+                <h1 class="site-title">5 Draw Poker</h1>
+            </div>
+
+            <div class="header-right">
+                <nav class="nav-bar nav-bar-right">
+                    {% if session.get("user_id") %}
+                        <span class="nav-user">Logged in as <strong>{{ session.username }}</strong></span>
+                        <a href="/logout">Logout</a>
+                    {% else %}
+                        <a href="/login">Login</a>
+                    {% endif %}
+                </nav>
+
+                <div class="header-chips">
+                    {% if state %}
+                        <span class="chip-label">Chips:</span>
+                        <span class="chip-value">{{ state.player_chips }}</span>
+                    {% endif %}
+                </div>
+            </div>
+
         </div>
     </header>
 

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="panel">
+    <h2 class="panel-title">Leaderboard</h2>
+
+    <form method="get" action="/leaderboard" class="sort-form">
+        <label for="sort">Sort by:</label>
+        <select name="sort" id="sort" onchange="this.form.submit()">
+            <option value="chips" {% if sort == 'chips' %}selected{% endif %}>Chips</option>
+            <option value="wins" {% if sort == 'wins' %}selected{% endif %}>Wins</option>
+            <option value="losses" {% if sort == 'losses' %}selected{% endif %}>Losses</option>
+            <option value="winrate" {% if sort == 'winrate' %}selected{% endif %}>Win Rate</option>
+        </select>
+    </form>
+
+    {% if rows %}
+        <table class="leaderboard-table">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Chips</th>
+                    <th>Wins</th>
+                    <th>Losses</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in rows %}
+                    <tr>
+                        <td>{{ row.username }}</td>
+                        <td>{{ row.chips }}</td>
+                        <td>{{ row.wins }}</td>
+                        <td>{{ row.losses }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="panel-text">No players yet. Register and start winning chips!</p>
+    {% endif %}
+</div>
+
+{% endblock %}

@@ -40,7 +40,7 @@
                     {% elif card.suit == 'Spades' %}
                         {% set suit_symbol = '♠' %}
                     {% endif %}
-                    <div class="card card-{{ card.suit|lower }}">
+                    <div class="card card-{{ card.suit|lower }} {% if state.player_rank == 10 %}rainbow-card{% endif %}">
                         <span class="card-rank">{{ card.rank }}</span>
                         <span class="card-suit">{{ suit_symbol }}</span>
                     </div>
@@ -80,7 +80,7 @@
                         {% elif card.suit == 'Spades' %}
                             {% set suit_symbol = '♠' %}
                         {% endif %}
-                        <label class="card card-{{ card.suit|lower }} card-selectable">
+                        <label class="card card-{{ card.suit|lower }} card-selectable {% if state.player_rank == 10 %}rainbow-card{% endif %}">
                             <input type="checkbox" name="discard[]" value="{{ card.original_index }}">
                             <span class="card-rank">{{ card.rank }}</span>
                             <span class="card-suit">{{ suit_symbol }}</span>
@@ -123,7 +123,7 @@
                         {% elif card.suit == 'Spades' %}
                             {% set suit_symbol = '♠' %}
                         {% endif %}
-                        <div class="card card-{{ card.suit|lower }}">
+                        <div class="card card-{{ card.suit|lower }} {% if state.player_rank == 10 %}rainbow-card{% endif %}">
                             <span class="card-rank">{{ card.rank }}</span>
                             <span class="card-suit">{{ suit_symbol }}</span>
                         </div>
@@ -152,7 +152,7 @@
                         {% elif card.suit == 'Spades' %}
                             {% set suit_symbol = '♠' %}
                         {% endif %}
-                        <div class="card card-{{ card.suit|lower }}">
+                        <div class="card card-{{ card.suit|lower }} {% if state.dealer_rank == 10 %}rainbow-card{% endif %}">
                             <span class="card-rank">{{ card.rank }}</span>
                             <span class="card-suit">{{ suit_symbol }}</span>
                         </div>
@@ -165,10 +165,12 @@
 </div>
 
 <p class="outcome-text">{{ state.outcome_message }}</p>
-
-<form method="POST" action="/restart" class="action-row">
-    <button class="btn btn-primary">Play Again</button>
-</form>
+<div class="action-row">
+    <form method="POST" action="/restart">
+        <button class="btn btn-primary">Play Again</button>
+    </form>
+    <a href="/" class="btn btn-secondary">Back to Home</a>
+</div>
 {% endif %}
 
 {% endblock %}
