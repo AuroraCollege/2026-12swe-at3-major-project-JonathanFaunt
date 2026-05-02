@@ -169,7 +169,7 @@ def play():
     game = get_game()
 
     if request.method == "POST":
-        action = request.form.get("action")
+        action = request.form.get("player_action")
 
         # BETTING PHASE
         if game.phase == "betting":
@@ -177,11 +177,10 @@ def play():
                 game.player_raise()
             elif action == "check":
                 game.player_check()
+                # Dealer responds once the player decides to stop raising
+                game.update_after_betting()
             elif action == "fold":
                 game.player_fold()
-
-            # Dealer auto-responds if needed
-            game.update_after_betting()
 
         # DISCARD PHASE
         elif game.phase == "discard":

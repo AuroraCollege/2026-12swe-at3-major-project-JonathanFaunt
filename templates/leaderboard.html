@@ -7,10 +7,10 @@
     <form method="get" action="/leaderboard" class="sort-form">
         <label for="sort">Sort by:</label>
         <select name="sort" id="sort">
-            <option value="chips" {% if sort == 'chips' %}selected{% endif %}>Chips</option>
-            <option value="wins" {% if sort == 'wins' %}selected{% endif %}>Wins</option>
-            <option value="losses" {% if sort == 'losses' %}selected{% endif %}>Losses</option>
-            <option value="winrate" {% if sort == 'winrate' %}selected{% endif %}>Win Rate</option>
+            <option value="chips" {% if sort == 'chips' %}selected{% endif %}>Highest Chips</option>
+            <option value="wins" {% if sort == 'wins' %}selected{% endif %}>Most Wins</option>
+            <option value="losses" {% if sort == 'losses' %}selected{% endif %}>Least Losses</option>
+            <option value="winrate" {% if sort == 'winrate' %}selected{% endif %}>Highest Win Rate</option>
         </select>
         <button type="submit" class="btn btn-secondary">Sort</button>
     </form>

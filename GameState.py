@@ -81,6 +81,8 @@ class GameState:
         self.current_bet = 10
         self.player_chips -= 10
         self.stats_recorded = False
+        self.dealer_folded = False
+        self.outcome_message = ""
 
         self.dealer_message = "Place your bet."
         self.update_sorted_groups()
@@ -89,10 +91,15 @@ class GameState:
     # BETTING PHASE
     # ---------------------------------------------------------
     def player_raise(self):
+        if self.current_bet >= 100:
+            return  # Cannot raise beyond 100
         self.current_bet += 10
         self.pot += 10
         self.player_chips -= 10
-        self.dealer_message = "You raised 10."
+        if self.current_bet >= 100:
+            self.dealer_message = "You raised 10. Bet is now at maximum."
+        else:
+            self.dealer_message = "You raised 10. Raise again or check."
 
     def player_check(self):
         self.dealer_message = "You checked."

@@ -51,9 +51,9 @@
 </div>
 
 <form method="POST" action="/play" class="action-row">
-    <button name="action" value="raise" class="btn btn-primary">Raise 10</button>
-    <button name="action" value="check" class="btn btn-secondary">Check</button>
-    <button name="action" value="fold" class="btn btn-danger">Fold</button>
+    <button type="submit" name="player_action" value="raise" class="btn btn-primary" {% if state.current_bet >= 100 %}disabled{% endif %}>Raise 10</button>
+    <button type="submit" name="player_action" value="check" class="btn btn-secondary">Check</button>
+    <button type="submit" name="player_action" value="fold" class="btn btn-danger">Fold</button>
 </form>
 {% endif %}
 
@@ -92,8 +92,8 @@
     </div>
 
     <div class="action-row">
-        <button name="action" value="discard" class="btn btn-primary">Discard Selected</button>
-        <button name="action" value="skip" class="btn btn-secondary">Keep Hand</button>
+        <button type="submit" name="player_action" value="discard" class="btn btn-primary">Discard Selected</button>
+        <button type="submit" name="player_action" value="skip" class="btn btn-secondary">Keep Hand</button>
     </div>
 </form>
 {% endif %}
