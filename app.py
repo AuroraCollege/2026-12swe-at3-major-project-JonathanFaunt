@@ -181,12 +181,13 @@ def play():
                 game.update_after_betting()
             elif action == "fold":
                 game.player_fold()
+            print("DEBUG original indexes:", [c.original_index for c in game.player_hand])
 
         # DISCARD PHASE
         elif game.phase == "discard":
             if action == "discard":
                 indexes = request.form.getlist("discard[]")
-                indexes = [int(i) for i in indexes]
+                indexes = [int(i) for i in indexes if i and i.isdigit()]
                 game.player_discard(indexes)
             elif action == "skip":
                 game.player_skip_discard()
@@ -286,6 +287,12 @@ def debug():
                 game.dealer_rank, game.dealer_tb = evaluate_hand(game.dealer_hand)
                 game.dealer_rank_text = RANK_TEXT[game.dealer_rank]
                 game.update_dealer_sorted_groups()
+                
+                for i, card in enumerate(game.player_hand):
+                    card.original_index = i
+
+                for i, card in enumerate(game.dealer_hand):
+                    card.original_index = i
 
                 save_game(game)
 
